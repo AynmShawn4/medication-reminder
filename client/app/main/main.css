@@ -13,7 +13,25 @@
     letter-spacing: -1px;
 }
 
+.hero-unit h1{
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: -1px;
+    font-size: 3.5vw;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+@media (max-width: 500px) {
+    .row.vertical-align {
+        display: block; /* Turn off the flexible box layout */
+    }
+}
 .hero-unit {
+    
+    border: 1px solid black;
     position: relative;
     padding: 30px 15px;
     color: #F5F5F5;

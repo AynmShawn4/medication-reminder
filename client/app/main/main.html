@@ -1,15 +1,65 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<header class="hero-unit" id="banner">
+<header >
   <div class="container">
-      <h1>{{currentTime}}</h1>
-  </div>
+    <div class="row">
+      <div class="col-lg-10 col-lg-offset-1 hero-unit">
+        <h1>{{currentTime}}</h1>
+      {{closest}}</div>
+
+    </div>
+    </div>
+  </div> 
 </header>
+
 <div class="container">
   <div class="row">
-    <div class="col-lg-6 col-lg-offset-3 text-center">
-        <div ng-repeat="m in meds">
-            {{m.time}} {{m.name}} {{m.dosage}}
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-11 text-center" >
+        <h2>Total Missed ({{missed.length}})</h2>
+        <div  ng-repeat="m in missed" ng-class="getClass('danger', $index)">
+          <div class="row vertical-align">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2" > <span style="font-size:1.5em" class="glyphicon glyphicon-remove"></span></div>
+              <div class="col-lg-7 col-md-6 col-sm-10 col-xs-9" >
+                Time: {{m.time}} <br>
+                Name: {{m.name}} <br>
+                Dosage: {{m.dosage}}
+              </div>
+              <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12" >
+                <button  ng-click="CompleteMedicine($index, missed.length, 'missed')" type="button" class="btn btn-default " >Complete Now!</button></div>
+          </div>
+
+        </div>
+    </div>
+
+    <div class="col-lg-5 col-lg-offset-1 col-md-6 col-sm-6 col-xs-11 text-center">
+      <h2> Upcoming ({{meds.length}})</h2>
+        <div ng-repeat="m in meds" ng-class="getClass('warning', $index)" >
+            <div class="row vertical-align">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2" > <span style="font-size:1.5em" class="glyphicon glyphicon-time"></span></div>
+
+              <div class="col-lg-7 col-md-6 col-sm-12 col-xs-9" >
+                Time: {{m.time}} <br>
+                Name: {{m.name}} <br>
+                Dosage: {{m.dosage}}
+              </div>
+              <div class="col-lg-2 col-md-3 col-sm-12" >
+                <button type="button" class="btn" ng-if="ShowButton[$index]" ng-click="CompleteMedicine($index, meds.length, 'upcoming')" style="display: block; margin: 0 auto;">Complete Now!</button>
+              </div>
+          </div>
+        </div>
+        <br>
+        <h2> Finished </h2>
+        <div ng-repeat="m in completed" class="alert alert-success">
+          <div class="row vertical-align">
+            <div class="col-lg-1 col-md-2 col-sm-2 col-xs-2 ">
+              <span class="glyphicon glyphicon-ok" class="panel panel-default"></span>
+            </div>
+            <div class="col-lg-8 col-md-6 col-sm-7 col-xs-8">
+                Time: {{m.time}} <br>
+                Name: {{m.name}} <br>
+                Dosage: {{m.dosage}}
+            </div>
+          </div>
         </div>
     </div>
   </div>
