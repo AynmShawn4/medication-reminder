@@ -34,41 +34,40 @@ angular.module('medicationReminderApp')
          * @return {Function}     - the function to open the modal (ex. myModalFn)
          */
         delete: function(del) {
-          del = del || angular.noop;
-
           /**
            * Open a delete confirmation modal
            * @param  {String} name   - name or info to show on modal
            * @param  {All}           - any additional args are passed staight to del callback
            */
-          return function() {
-            var args = Array.prototype.slice.call(arguments),
-                name = args.shift(),
-                deleteModal;
+          return function(x , y, d) {
 
+            var deleteModal;
+            d = d || angular.noop;
             deleteModal = openModal({
               modal: {
                 dismissable: true,
-                title: 'Confirm Delete',
-                html: '<p>Are you sure you want to delete <strong>' + name + '</strong> ?</p>',
+                title: 'Confirm Finish',
+                html: '<p>Are you sure you finished <strong>' + x + '</strong> with dosage ' + y + '?</p>',
                 buttons: [{
-                  classes: 'btn-danger',
-                  text: 'Delete',
-                  click: function(e) {
-                    deleteModal.close(e);
+                  classes: 'btn-primary',
+                  text: 'Yes',
+                  click: function() {
+                    deleteModal.close(1);
                   }
                 }, {
                   classes: 'btn-default',
                   text: 'Cancel',
-                  click: function(e) {
-                    deleteModal.dismiss(e);
+                  click: function() {
+                    deleteModal.dismiss(0);
                   }
                 }]
               }
-            }, 'modal-danger');
+            }, 'modal-primary');
 
-            deleteModal.result.then(function(event) {
-              del.apply(event, args);
+            deleteModal.result.then(function(event) {    
+               d(event);
+            }, function(event){
+               d(event);
             });
           };
         }
